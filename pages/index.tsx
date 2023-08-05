@@ -1,36 +1,46 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import useArticle, { Articles } from '@/hooks/useArticle'
-import Card from '@/components/Card'
-import { title } from 'process'
-
-const inter = Inter({ subsets: ['latin'] })
+import { Col, Row } from 'antd';
+import Layout from '@/components/Layout'
+import Cards from '@/components/Cards';
+import router from 'next/router';
+import { useDispatch } from 'react-redux';
+import { setDetail } from 'redux/reducers/detailArticle';
+import useArticle, { Articles } from 'hooks/useArticle';
 
 export default function Home() {
+  const dispatch = useDispatch()
+  const { data: articles, error } = useArticle()
 
+  if (error) return alert('failed to get the data')
 
-  const randomNum = Math.floor(Math.random() * 1000)
+  const handleGetDetail = ({ author, content, description, publishedAt, url, urlToImage, title }: Articles) => {
+    dispatch(setDetail({ author, content, description, publishedAt, url, urlToImage, title }))
+    router.push(`detail/${author}`)
+  }
 
-  const { data: getAll, error } = useArticle()
-  console.log(getAll)
   return (
-    <main
-      className={`flex flex-col min-h-screen  justify-between p-24 `}
-    >
-      <div className='flex gap-10'>
-
-
+    <Layout>
+      <div className='flex flex-col p-2 z-20 w-full  justify-center items-center'>
+        <h1 className='text-2xl font-semibold z-20'>Top headlines from TechCrunch right now</h1>
+        <div className="my-10 grid w-full max-w-screen-xl grid-cols-1 gap-5 px-5 md:grid-cols-3 xl:px-0 ">
+          {
+            articles?.map(({ author, description, urlToImage, content, publishedAt, url, title }: Articles, index: number) => (
+              <>
+                <Cards
+                  large={index === 0 || index === 3 ? true : false}
+                  // onCardClick={() => handleGetDetail({ author, content, description, publishedAt, url, urlToImage, title })}
+                  key={author}
+                  title={title}
+                  description={description}
+                  image={urlToImage}
+                  author={author}
+                  onClick={() => handleGetDetail({ author, content, description, publishedAt, url, urlToImage, title })}
+                />
+              </>
+            ))
+          }
+        </div>
       </div>
-      <div className="my-10 grid w-full max-w-screen-xl grid-cols-1 gap-5 px-5 md:grid-cols-3 xl:px-0 ">
-        {
-          getAll?.map(({ author, description, urlToImage }: Articles, index: number) => (
-            <>
-               <Card title={author} description={description} demo={urlToImage} key={title} />
-            </>
-          ))
-        }
-      
-      </div>
-    </main>
+    </Layout >
+
   )
 }
