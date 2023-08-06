@@ -4,6 +4,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 First, run the development server:
 
+npm install
+
 ```bash
 npm run dev
 # or
@@ -11,6 +13,22 @@ yarn dev
 # or
 pnpm dev
 ```
+## Tools
+- [SWR](https://swr.vercel.app/) - React Hooks for Data Fetching
+- [Axios](https://axios-http.com/) - Promise based HTTP client for the browser and node.js
+- [Redux-toolkit](https://redux-toolkit.js.org/) - The official, opinionated, batteries-included toolset for efficient Redux development
+
+### UI
+
+- [Tailwind CSS](https://tailwindcss.com/) – Utility-first CSS framework for rapid UI development
+- [Ant design](https://ant.design/) - Help designers/developers building beautiful products more flexible and working with happiness
+
+### Code Quality
+
+- [TypeScript](https://www.typescriptlang.org/) – Static type checker for end-to-end typesafety
+- [Prettier](https://prettier.io/) – Opinionated code formatter for consistent code style
+- [ESLint](https://eslint.org/) – Pluggable linter for Next.js and TypeScript
+
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
