@@ -3,9 +3,7 @@ import React, { ReactNode } from 'react'
 import useScroll from '@/hooks/use-scroll'
 
 export default function Layout({ children }: { children: ReactNode }) {
-
     const scrolled = useScroll(20)
-    
     return (
         <div>
             <div className="fixed h-screen w-full bg-gradient-to-br from-indigo-100 to-cyan-100"
