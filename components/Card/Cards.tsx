@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card} from 'antd';
+import { Card, Skeleton } from 'antd';
 import Image from "next/image";
 
 export default function Cards({
@@ -10,13 +10,15 @@ export default function Cards({
     large,
     onClick,
     onCardClick,
+    isLoading,
 }: {
     title: string;
     description: string;
     image: string;
     author: string;
     large?: boolean
-    onClick: () => void
+    isLoading?: boolean
+    onClick?: () => void
     onCardClick?: () => void
 }) {
     return (
@@ -25,18 +27,20 @@ export default function Cards({
                 className={`relative col-span-1  ${large ? "md:col-span-2" : ""
                     }`}
             >
-
                 <Card
-                    // onClick={onCardClick}
+                    onClick={onCardClick}
                     hoverable
                     style={{ minWidth: 100, maxWidth: 850, minHeight: 400 }}
-                    cover={<Image src={image}
-                        alt={title}
-                        width={0}
-                        height={0}
-                        sizes="100vw"
-                        style={{ width: '100%', height: '240px', }}
-                        priority />}
+                    cover={isLoading ?
+                        <Skeleton.Image active /> : <Image src={image}
+                            alt={title}
+                            width={0}
+                            height={0}
+                            sizes="100vw"
+                            style={{ width: '100%', height: '240px', }}
+                            priority />
+
+                    }
                 >
                     <div className='flex flex-col gap-4'>
                         <button onClick={onClick}>
@@ -52,8 +56,6 @@ export default function Cards({
                                 {title}
                             </h2>
                         </button>
-
-
                         <p style={{
                             height: '3rem',
                             lineHeight: '1.5rem',
