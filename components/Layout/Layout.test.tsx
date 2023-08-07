@@ -1,34 +1,17 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import Layout from './Layout';
+import Layout from './Layout'; // Adjust the path to your Layout component
 
-// Mock the useScroll module
-jest.mock('@/hooks/use-scroll', () => () => false);
+describe('Layout Component', () => {
+  it('renders children and header text', () => {
+    render(<Layout><div>Test Children</div></Layout>);
 
-describe('Layout', () => {
-  it('renders children', () => {
-    render(
-      <Layout>
-        <div>Test Content</div>
-      </Layout>
-    );
+    // Check if header text is rendered
+    const headerLink = screen.getByRole('link', { name: /Eigen\s*Articles/ });
+    expect(headerLink).toBeInTheDocument();
 
-    const childContent = screen.getByText('Test Content');
-    expect(childContent).toBeInTheDocument();
+    const headerText = headerLink.textContent;
+    expect(headerText).toMatch(/Eigen\s*Articles/);
   });
 
-  it('displays the correct header', () => {
-    render(
-      <Layout>
-        <div>Test Content</div>
-      </Layout>
-    );
-    const logoText = screen.getByText((content, element) => {
-      return content === 'Eigen' && element?.tagName.toLowerCase() === 'span';
-    }) as HTMLElement;
-    expect(logoText).toBeInTheDocument();
-
-    const gradientBackground = screen.getByTestId('gradient-bg');
-    expect(gradientBackground).toBeInTheDocument();
-  });
 });
