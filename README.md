@@ -12,6 +12,10 @@ npm run dev
 yarn dev
 # or
 pnpm dev
+# or
+run this command for testing the component
+npm run test 
+
 ```
 ## Tools
 - [SWR](https://swr.vercel.app/) - React Hooks for Data Fetching
