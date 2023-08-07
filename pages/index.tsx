@@ -45,8 +45,8 @@ export default function Home() {
     <Layout>
       <div className='flex md:flex-row flex-col w-full md:gap-20 z-20 items-center justify-between md:px-8 '>
 
-        <div className='flex flex-col p-4  z-20 md:w-2/3  items-center  h-full'>
-          <div className='w-full md:mb-36 md:mt-10 p-10  '>
+        <div className='flex flex-col p-2 z-20 md:w-2/3 w-full items-center h-full'>
+          <div className='w-full md:mb-36 md:mt-10 md:p-10 '>
             <h1 className='text-2xl md:text-4xl underline font-semibold z-20  text-center mb-10'>Top headlines about Trump</h1>
             <Swiper
               slidesPerView={1}
@@ -59,7 +59,7 @@ export default function Home() {
                     <h1 className='text-xl font-serif font-semibold mb-2'>{title}</h1>
                     {urlToImage !== null ? (
                       <Image
-                      priority
+                        priority
                         src={urlToImage}
                         alt={title}
                         width={0} // Set an appropriate width
