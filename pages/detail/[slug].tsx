@@ -29,11 +29,11 @@ const index = () => {
                     className='w-[1000px]'
                     cover={
                         <Image src={article?.urlToImage!}
-                            alt={article?.author!}
+                            alt={'article'}
                             width={0}
                             height={0}
                             sizes="100vw"
-                            style={{ width: '100%', height: '500px', objectFit: 'cover' }}
+                            style={{ width: '100%', height: '500px'}}
                             priority
                         />
                     }>
