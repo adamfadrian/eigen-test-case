@@ -6,7 +6,7 @@ import useArticle, { Articles } from 'hooks/useArticle';
 import { setDetail } from 'store/reducers/detailArticle';
 import useSecondArticle from '@/hooks/useSecondArticle';
 import Image from 'next/image'
-import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper/modules';
+import { Navigation, Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -30,7 +30,6 @@ export default function Home() {
     dispatch(setDetail({ author, content, description, publishedAt, url, urlToImage, title }))
     router.push(`detail/${author}`)
   }
-
 
   const swiperParams = {
     loop: true,
