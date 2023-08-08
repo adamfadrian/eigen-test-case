@@ -13,7 +13,13 @@ const nextConfig = {
      "media.breitbart.com",
      "media-cldnry.s-nbcnews.com",
       "static.foxnews.com",
-      "cdn.24.co.za"
+      "cdn.24.co.za",
+      "assets3.cbsnewsstatic.com",
+      "cnnespanol.cnn.com",
+      "www.tagesspiegel.de",
+      "static.independent.co.uk",
+      "storage.googleapis.com",
+      "www.tagesspiegel.de",
     ],
   },
 }
