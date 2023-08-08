@@ -1,3 +1,4 @@
+import SkeletonCard from "@/components/SkeletonCard/SkeletonCard";
 import axios from "axios";
 import useSWR from "swr";
 
@@ -10,6 +11,6 @@ export default function useSecondArticle() {
     fetcher,
   );
   if (error) alert("failed to get data");
-
+  
   return { data, error, isLoading };
 }

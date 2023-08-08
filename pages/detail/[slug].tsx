@@ -7,6 +7,7 @@ import { Button, Card } from 'antd';
 import Image from 'next/image'
 import { ArrowRightOutlined } from '@ant-design/icons';
 import { RootState } from 'store/rootReducer';
+import { mockImage } from '..';
 
 const index = () => {
 
@@ -28,13 +29,12 @@ const index = () => {
                     hoverable
                     className='w-[1000px]'
                     cover={
-                        <Image src={article?.urlToImage!}
+                        <img src={article?.urlToImage ? article.urlToImage : mockImage}
                             alt={'article'}
                             width={0}
                             height={0}
                             sizes="100vw"
                             style={{ width: '100%', height: '500px'}}
-                            priority
                         />
                     }>
                     <div className='flex flex-col gap-2'>

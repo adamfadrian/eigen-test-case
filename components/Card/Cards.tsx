@@ -1,6 +1,7 @@
 import React from 'react'
 import { Card, Skeleton } from 'antd';
 import Image from "next/image";
+import { mockImage } from '@/pages/index';
 
 export default function Cards({
     title,
@@ -32,13 +33,19 @@ export default function Cards({
                     hoverable
                     style={{ minWidth: 100, maxWidth: 850, minHeight: 400 }}
                     cover={isLoading ?
-                        <Skeleton.Image active /> : <Image src={image}
+                        <img src={mockImage}
                             alt={title}
                             width={0}
                             height={0}
                             sizes="100vw"
                             style={{ width: '100%', height: '240px', }}
-                            priority />
+                        /> : <img src={image}
+                            alt={title}
+                            width={0}
+                            height={0}
+                            sizes="100vw"
+                            style={{ width: '100%', height: '240px', }}
+                        />
 
                     }
                 >
