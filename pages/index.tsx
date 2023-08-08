@@ -45,7 +45,9 @@ export default function Home() {
       <div className='flex md:flex-row flex-col w-full md:gap-20 z-20 items-center justify-between md:px-8 '>
 
         <div className='flex flex-col p-2 z-20 md:w-2/3 w-full items-center h-full'>
-          <div className='w-full md:mb-36 md:mt-10 md:p-10 '>
+          {/*  Remove the swiper because it needs to add the image domain for every new article  */}
+
+          {/* <div className='w-full md:mb-36 md:mt-10 md:p-10 '>
             <h1 className='text-2xl md:text-4xl underline font-semibold z-20  text-center mb-10'>Top headlines about Trump</h1>
             <Swiper
               slidesPerView={1}
@@ -76,7 +78,7 @@ export default function Home() {
 
               ))}
             </Swiper>
-          </div>
+          </div> */}
           <h1 className='text-2xl md:text-4xl underline font-semibold z-20  text-center'>Top headlines from TechCrunch right now</h1>
           <div className="my-10 grid w-full max-w-screen-xl grid-cols-1 gap-5 px-5 md:grid-cols-3 xl:px-0 ">
             {articles?.map(({ author, description, urlToImage, content, publishedAt, url, title }: Articles, index: number) => (
