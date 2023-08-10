@@ -2,9 +2,9 @@ import Layout from '@/components/Layout/Layout'
 import Cards from '@/components/Card/Cards';
 import router from 'next/router';
 import { useDispatch } from 'react-redux';
-import useArticle, { Articles } from 'hooks/useArticle';
+import useArticle, { Articles } from 'lib/hooks/useArticle';
 import { setDetail } from 'store/reducers/detailArticle';
-import useSecondArticle from '@/hooks/useSecondArticle';
+import useSecondArticle from 'lib/hooks/useSecondArticle';
 import { Navigation, Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -12,9 +12,9 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import 'swiper/css/navigation';
 import 'swiper/css/autoplay'
-import useThirdArticle from '@/hooks/useThirdArticle';
+import useThirdArticle from 'lib/hooks/useThirdArticle';
 import SkeletonCard from '@/components/SkeletonCard/SkeletonCard';
-import { useState } from 'react';
+import React, { useState } from 'react'
 
 
 export const mockImage = 'https://www.babatpost.com/wp-content/uploads/2023/07/Breaking-News-Lando-Norris-Menikmati-Latihan-Pra-Balapan-di-Monako.jpeg'
@@ -22,11 +22,11 @@ export const mockImage = 'https://www.babatpost.com/wp-content/uploads/2023/07/B
 export default function Home() {
   const dispatch = useDispatch()
   // articles from Top headlines from TechCrunch right now
-  const { data: articles, error, isLoading: isLoadingArticles } = useArticle();
+  const { data: techCrunch, error, isLoading: isLoadingTechCrunch } = useArticle();
   // articles Top headlines from BBC News
-  const { data: secondArticles, isLoading: isLoadingSecondArticles } = useSecondArticle();
+  const { data: BBCNews, isLoading: isLoadingBBCNews } = useSecondArticle();
   // articles from another source
-  const { data: thirdArticles, isLoading: isLoadingThirdArticles } = useThirdArticle();
+  const { data: trumpArticle, isLoading: isLoadingTrumpArticle } = useThirdArticle();
 
   const [count, setCount] = useState(10)
 
@@ -47,13 +47,12 @@ export default function Home() {
     },
 
   }
-  
+
   return (
     <Layout>
       <div className='flex md:flex-row flex-col w-full md:gap-20 z-20 items-center justify-between md:px-8 '>
 
         <div className='flex flex-col p-2 z-20 md:w-2/3 w-full items-center h-full'>
-          {/*  Remove the swiper because it needs to add the image domain for every new article  */}
 
           <div className='w-full md:mb-36 md:mt-10 md:p-10 '>
             <h1 className='text-2xl md:text-4xl underline font-semibold z-20  text-center mb-10'>Top headlines about Trump</h1>
@@ -62,50 +61,59 @@ export default function Home() {
               navigation
               {...swiperParams}
             >
-              {thirdArticles?.map(({ author, description, urlToImage, content, publishedAt, url, title }: Articles) => (
-                <SwiperSlide key={title} >
-                  <div className='flex flex-col text-center hover:cursor-pointer'>
-                    <h1 className='text-xl font-serif font-semibold mb-2'>{title}</h1>
+              {isLoadingTrumpArticle ? (
+                <SkeletonCard
+                  count={1}
+                />
+              ) : (
+                trumpArticle?.map(({ author, description, urlToImage, content, publishedAt, url, title }: Articles) => (
+                  <SwiperSlide key={title} >
+                    <div className='flex flex-col text-center hover:cursor-pointer'>
+                      <h1 className='text-xl font-serif font-semibold mb-2'>{title}</h1>
+                      <img
+                        src={urlToImage ? urlToImage : mockImage}
+                        alt={title}
+                        width={0} // Set an appropriate width
+                        height={0} // Set an appropriate height
+                        sizes='100vw'
+                        style={{ width: '100%', height: '500px', borderRadius: '8px', }}
+                        onClick={() => handleGetDetail({ author, content, description, publishedAt, url, urlToImage, title })}
+                      />
+                    </div>
 
-                    <img
-                      src={urlToImage ? urlToImage : mockImage}
-                      alt={title}
-                      width={0} // Set an appropriate width
-                      height={0} // Set an appropriate height
-                      sizes='100vw'
-                      style={{ width: '100%', height: '500px', borderRadius: '8px', }}
-                      onClick={() => handleGetDetail({ author, content, description, publishedAt, url, urlToImage, title })}
-                    />
-                  </div>
+                  </SwiperSlide>
 
-                </SwiperSlide>
+                ))
+              )
 
-              ))}
+
+              }
             </Swiper>
           </div>
           <h1 className='text-2xl md:text-4xl underline font-semibold z-20  text-center'>Top headlines from TechCrunch right now</h1>
           <div className="my-10 grid w-full max-w-screen-xl grid-cols-1 gap-5 px-5 md:grid-cols-3 xl:px-0 ">
-            {isLoadingArticles ?
+            {isLoadingTechCrunch ?
               (
-
-                <SkeletonCard
-                  large={count === 0 || count === 3 ? true : false}
-                  count={count}
-                />
+                Array.from({ length: count }, (_, index) => (
+                  <SkeletonCard
+                    large={index === 0 || index === 3  ? true : false}
+                    count={count}
+                  />
+                ))
 
               ) :
               (
-                articles?.map(({ author, description, urlToImage, content, publishedAt, url, title }: Articles, index: number) => (
+                techCrunch?.map(({ author, description, urlToImage, content, publishedAt, url, title }: Articles, index: number) => (
                   <Cards
                     large={index === 0 || index === 3 ? true : false}
                     key={title}
                     title={title}
                     description={description}
-                    image={urlToImage}
+                    image={urlToImage !== null ? urlToImage : mockImage}
                     author={author}
                     onClick={() => handleGetDetail({ author, content, description, publishedAt, url, urlToImage, title })}
                     onCardClick={() => handleGetDetail({ author, content, description, publishedAt, url, urlToImage, title })}
-                    isLoading={isLoadingArticles}
+                    isLoading={isLoadingTechCrunch}
                   />
                 ))
               )
@@ -117,24 +125,26 @@ export default function Home() {
         <div className='flex flex-col p-2 z-20 md:w-1/3  items-center'>
           <h1 className='text-2xl md:text-4xl underline font-semibold z-20 text-center'>Top headlines from BBC News</h1>
           <div className="my-10 grid w-full max-w-screen-xl grid-cols-1 gap-5 px-5 md:grid-cols-2 xl:px-0 ">
-            {isLoadingSecondArticles ?
+            {isLoadingBBCNews ?
               (
-                <SkeletonCard
-                  large={count === 0 || count === 3 ? true : false}
-                  count={count}
-                />
+                Array.from({ length: count }, (_, index) => (
+                  <SkeletonCard
+                    large={index === 0|| index === 5  ? true : false}
+                    count={count}
+                  />
+                ))
               ) :
-              secondArticles?.map(({ author, description, urlToImage, content, publishedAt, url, title }: Articles, index: number) => (
+              BBCNews?.map(({ author, description, urlToImage, content, publishedAt, url, title }: Articles, index: number) => (
                 <Cards
                   large={index === 0 || index === 5 ? true : false}
                   key={title}
                   title={title}
                   description={description}
-                  image={urlToImage}
+                  image={urlToImage  !== null  ? urlToImage : mockImage}
                   author={author}
                   onClick={() => handleGetDetail({ author, content, description, publishedAt, url, urlToImage, title })}
                   onCardClick={() => handleGetDetail({ author, content, description, publishedAt, url, urlToImage, title })}
-                  isLoading={isLoadingSecondArticles}
+                  isLoading={isLoadingBBCNews}
                 />
               ))}
           </div>

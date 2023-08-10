@@ -1,8 +1,9 @@
 import { persistReducer, persistStore } from "redux-persist";
 import detailArticleReducers from "./reducers/detailArticle"
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
 import { getDefaultMiddleware } from '@reduxjs/toolkit';
+import { userReducer } from "./reducers/userSlice";
 
 const persistConfig = {
     key: 'root',
@@ -15,7 +16,10 @@ const customizedMiddleware = getDefaultMiddleware({
   })
 
 // persist the reducer into browser storage
-const rootReducer = persistReducer(persistConfig, detailArticleReducers)
+const rootReducer = combineReducers({
+    article: persistReducer(persistConfig, detailArticleReducers),
+    user: persistReducer(persistConfig, userReducer)
+})
 
 // redux store with persisted reducer
 const store = configureStore({

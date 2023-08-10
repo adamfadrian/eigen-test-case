@@ -1,4 +1,4 @@
-import { Articles } from "hooks/useArticle";
+import { Articles } from "lib/hooks/useArticle";
 import { ReducerPayload } from "./../type/ReducerPayload";
 import { createSlice } from "@reduxjs/toolkit";
 

@@ -1,6 +1,5 @@
 import React from 'react'
 import { Card, Skeleton } from 'antd';
-import Image from "next/image";
 import { mockImage } from '@/pages/index';
 
 export default function Cards({
