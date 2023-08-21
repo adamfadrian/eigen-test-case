@@ -1,19 +1,6 @@
 import axios from 'axios'
 import useSWR from 'swr'
 
-export interface Articles {
-    author: string
-    title: string
-    content?: string
-    description: string;
-    publishedAt?: string;
-    url: string;
-    urlToImage: string;
-    source?: {
-        name: string
-        id: string
-    }
-}
 
 const fetcher = async (url: string) => await axios.get(url).then((res) => res.data.articles)
 

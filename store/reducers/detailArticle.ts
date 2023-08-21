@@ -1,9 +1,21 @@
-import { Articles } from "lib/hooks/useArticle";
 import { ReducerPayload } from "./../type/ReducerPayload";
 import { createSlice } from "@reduxjs/toolkit";
 
+export interface Articles {
+  author: string
+  title: string
+  content?: string
+  description: string;
+  publishedAt?: string;
+  url: string;
+  urlToImage: string;
+  source?: {
+      name: string
+      id: string
+  }
+}
 interface detailArticleState {
-  article?: Articles;
+  article: Articles;
 }
 
 const detailArticleInitialState: detailArticleState = {

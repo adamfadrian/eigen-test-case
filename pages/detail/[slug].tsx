@@ -14,7 +14,7 @@ const index = () => {
     const router = useRouter()
     const { author } = router.query
     // get data detail
-    const article = useSelector((state: RootState) => state.article)
+    const article = useSelector((state: RootState) => state.article.article)
 
 
     // handle to open the detail article source link

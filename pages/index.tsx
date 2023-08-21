@@ -2,8 +2,8 @@ import Layout from '@/components/Layout/Layout'
 import Cards from '@/components/Card/Cards';
 import router from 'next/router';
 import { useDispatch } from 'react-redux';
-import useArticle, { Articles } from 'lib/hooks/useArticle';
-import { setDetail } from 'store/reducers/detailArticle';
+import useArticle  from 'lib/hooks/useArticle';
+import { Articles, setDetail } from 'store/reducers/detailArticle';
 import useSecondArticle from 'lib/hooks/useSecondArticle';
 import { Navigation, Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
