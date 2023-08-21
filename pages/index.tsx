@@ -2,7 +2,7 @@ import Layout from '@/components/Layout/Layout'
 import Cards from '@/components/Card/Cards';
 import router from 'next/router';
 import { useDispatch } from 'react-redux';
-import useArticle  from 'lib/hooks/useArticle';
+import useArticle from 'lib/hooks/useArticle';
 import { Articles, setDetail } from 'store/reducers/detailArticle';
 import useSecondArticle from 'lib/hooks/useSecondArticle';
 import { Navigation, Autoplay } from 'swiper/modules';
@@ -64,6 +64,7 @@ export default function Home() {
               {isLoadingTrumpArticle ? (
                 <SkeletonCard
                   count={1}
+
                 />
               ) : (
                 trumpArticle?.map(({ author, description, urlToImage, content, publishedAt, url, title }: Articles) => (
@@ -96,7 +97,8 @@ export default function Home() {
               (
                 Array.from({ length: count }, (_, index) => (
                   <SkeletonCard
-                    large={index === 0 || index === 3  ? true : false}
+                    key={index + 1}
+                    large={index === 0 || index === 3 ? true : false}
                     count={count}
                   />
                 ))
@@ -129,7 +131,8 @@ export default function Home() {
               (
                 Array.from({ length: count }, (_, index) => (
                   <SkeletonCard
-                    large={index === 0|| index === 5  ? true : false}
+                    key={index + 1}
+                    large={index === 0 || index === 5 ? true : false}
                     count={count}
                   />
                 ))
@@ -140,7 +143,7 @@ export default function Home() {
                   key={title}
                   title={title}
                   description={description}
-                  image={urlToImage  !== null  ? urlToImage : mockImage}
+                  image={urlToImage !== null ? urlToImage : mockImage}
                   author={author}
                   onClick={() => handleGetDetail({ author, content, description, publishedAt, url, urlToImage, title })}
                   onCardClick={() => handleGetDetail({ author, content, description, publishedAt, url, urlToImage, title })}

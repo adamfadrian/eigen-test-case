@@ -27,14 +27,11 @@ export default function Layout({
     // const { data: session, status } = useSession()
     const { email, image } = session?.user || {};
     // const { accessToken }: any = session
-    console.log("Session:", currentUserData);
-    console.log("email:", email);
-    console.log("image:", image);
+    // console.log("Session:", currentUserData);
+    // console.log("email:", email);
+    // console.log("image:", image);
     // console.log("accessToken:", accessToken);
 
-    console.log("Status:", status);
-
-    console.log('user', user)
     const handleSignIn = useCallback(async () => {
         setSignInClicked(true);
         try {
